@@ -24,7 +24,9 @@ def accept_request():
 
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('localhost', 23940))  # необходимо указать нужный IP перед подключением
+print('Enter IP for connection:')
+IP = input()
+client.connect((IP, 23940))  
 
 print('You\'ve connected to the button! Enter file path:')
 path = input()

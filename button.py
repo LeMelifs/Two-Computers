@@ -3,14 +3,13 @@ import tkinter as tk
 
 
 def send_request():
-    user.send("pressed".encode("utf-8"))
+    client.send("pressed".encode("utf-8"))
 
 
-server = socket.create_server(('0.0.0.0', 23940))
-server.listen()
-user, address = server.accept()
-print("connected")
-
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print('Enter IP for connection:')
+IP = input()
+client.connect((IP, 23940))
 window = tk.Tk()
 window.geometry("500x500")
 window.title("Click button")

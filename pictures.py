@@ -15,7 +15,7 @@ def get_new_pic(count):
 def accept_request():
     count = 0
     while True:
-        msg = client.recv(1024)
+        msg = user.recv(1024)
         if msg.decode("utf-8") == "pressed":
             get_new_pic(count)
             count = count + 1
@@ -23,13 +23,11 @@ def accept_request():
                 count = 0
 
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-print('Enter IP for connection:')
-IP = input()
-client.connect((IP, 23940))  
+server = socket.create_server(('0.0.0.0', 23940))
+server.listen()
+user, address = server.accept()
 
-print('You\'ve connected to the button! Enter file path:')
-path = input()
+path = "D:/Images"
 files = os.listdir(path)
 picture_list = list()
 for file in files:
@@ -37,9 +35,5 @@ for file in files:
         img_path = path + '/' + file
         picture_list.append(img_path)
 
-if len(picture_list) != 0:
-    root = Tk()
-    accept_request()
-else:
-    print('Your input is incorrect! Please retry.')
-    input()
+root = Tk()
+accept_request()

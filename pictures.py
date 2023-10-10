@@ -18,9 +18,7 @@ def accept_request():
         msg = user.recv(1024)
         if msg.decode("utf-8") == "pressed":
             get_new_pic(count)
-            count = count + 1
-            if count >= len(picture_list):
-                count = 0
+            count = (count + 1) % len(picture_list);
 
 
 server = socket.create_server(('0.0.0.0', 23940))
